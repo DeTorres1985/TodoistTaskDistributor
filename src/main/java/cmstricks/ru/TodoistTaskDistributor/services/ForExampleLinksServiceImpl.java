@@ -1,5 +1,6 @@
 package cmstricks.ru.TodoistTaskDistributor.services;
 
+import cmstricks.ru.TodoistTaskDistributor.repositories.TaskCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,7 @@ import java.util.Optional;
 public class ForExampleLinksServiceImpl implements LinksService {
 
     @Autowired
-    PaidLinkRepository paidLinkRepository;
-    @Autowired
-    FreeLinkCrudRepository freeLinkCrudRepository;
+    TaskCrudRepository taskCrudRepository;
 
     @Value("${link.price.default}")
     private BigDecimal defaultPrice;

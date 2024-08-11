@@ -1,10 +1,13 @@
 package cmstricks.ru.TodoistTaskDistributor.services;
 
 import cmstricks.ru.TodoistTaskDistributor.Task;
+import cmstricks.ru.TodoistTaskDistributor.repositories.TaskCrudRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,10 +18,13 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
     // @TODO move to properties
     private static final String API_TOKEN = System.getenv("TODOIST_API_TOKEN");
-    // @TODO move to properties
-    private static final String BASE_URL = "https://api.todoist.com/rest/v2/";
-    // @TODO move to properties
-    private static final String PROJECT_ID = "2333440340";
+    @Value("${todoist.api.path}")
+    private String BASE_URL;
+    @Value("${todoist.project.id}")
+    private String PROJECT_ID;
+
+    @Autowired
+    TaskCrudRepository taskCrudRepository;
 
     public List<Task> getAllTasks() {
         OkHttpClient client = new OkHttpClient();
