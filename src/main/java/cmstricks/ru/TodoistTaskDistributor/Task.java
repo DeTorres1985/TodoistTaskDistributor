@@ -1,11 +1,21 @@
 package cmstricks.ru.TodoistTaskDistributor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "loadTasksFromTodoist")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task {
+    @Id
+    @Column(name = "id", nullable = false, unique = true, columnDefinition = "VARCHAR(50)")
     public String id;
+    @Column(name="parent_id", columnDefinition = "VARCHAR(50)")
     public String parent_id;
+    @Column(name="task_order", columnDefinition = "VARCHAR(255)")
     public String order;
     public String content;
     public String description;

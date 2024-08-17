@@ -43,7 +43,10 @@ public class TaskServiceImpl implements TaskService {
             String jsonData = response.body().string();
             final ObjectMapper objectMapper = new ObjectMapper();
 
-            return Arrays.asList(objectMapper.readValue(jsonData, Task[].class));
+            List<Task> taskList = Arrays.asList(objectMapper.readValue(jsonData, Task[].class));
+            taskCrudRepository.saveAll(taskList);
+
+            return taskList;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
